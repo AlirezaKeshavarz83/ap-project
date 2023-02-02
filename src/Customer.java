@@ -7,7 +7,7 @@ public class Customer implements Serializable {
     private static int lastCustomerId;
     private int customerId;
     private Contact contact;
-    private Address address;
+    private ArrayList<Address> addresses = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
 
     public Customer(int customerId){
@@ -26,11 +26,11 @@ public class Customer implements Serializable {
     public void setContact(Contact contact){
         this.contact = contact;
     }
-    public Address getAddress(){
-        return this.address;
+    public ArrayList<Address> getAddresses(){
+        return this.addresses;
     }
-    public void setAddress(Address address){
-        this.address = address;
+    public void addAddress(Address address){
+        this.addresses.add(address);
     }
     public void addOrder(Order order){
         this.orders.add(order);
@@ -58,7 +58,7 @@ public class Customer implements Serializable {
             return null;
         }
         customer.setContact(contact);
-        customer.setAddress(address);
+        customer.addAddress(address);
         return customer;
     }
     public static Customer chooseCustomer(ArrayList<Customer> customers){

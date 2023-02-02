@@ -1,5 +1,5 @@
 import java.io.Serializable;
-
+import java.time.LocalDateTime;
 public class Time implements Serializable {
     private int year;
     private int month;
@@ -22,5 +22,9 @@ public class Time implements Serializable {
     }
     public String getDateString(){
         return ("" + year + "-" + month + "-" + day);
+    }
+    public static Time now(){
+        var dt = LocalDateTime.now();
+        return new Time(dt.getYear(), dt.getMonthValue(), dt.getDayOfMonth(), dt.getHour(), dt.getMinute());
     }
 }

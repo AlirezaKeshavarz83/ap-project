@@ -47,13 +47,26 @@ public class Order implements Serializable {
             orderItem.cnt = Integer.parseInt(inp);
             return orderItem;
         }
+        public static OrderItem chooseOrderItem(ArrayList<Item> items){
+            var item = Item.chooseItem(items);
+            if(item == null){
+                return null;
+            }
+            var subItem = Item.SubItem.chooseSubItem(item.getPackages());
+            if(subItem == null){
+                return null;
+            }
+            return OrderItem.addMenu(subItem);
+        }
 
     }
     private int orderId;
     private Customer customer;
+    private Shop shop;
+    private Address address;
     private ArrayList<OrderItem> itemList = new ArrayList<>();
     private int totalPrice;
-    private State orderStatus = State.INCOMPLETE;
+    private State orderState = State.INCOMPLETE;
     private Time timeOrdered;
     private Time timePaid;
     public int getOrderId(){
@@ -62,21 +75,56 @@ public class Order implements Serializable {
     public Customer getCustomer(){
         return this.customer;
     }
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+    }
+    public void setShop(Shop shop){
+        this.shop = shop;
+    }
+    public Shop getShop(){
+        return this.shop;
+    }
+    public void setAddress(Address address){
+        this.address = address;
+    }
+    public Address getAddress(){
+        return this.address;
+    }
     public ArrayList<OrderItem> getOrderItemList(){
         return this.itemList;
     }
     public void addOrderItem(OrderItem orderItem){
+        if(this.orderState.compareTo(State.PAID) >= 0){
+            System.out.println("Can't change order after payment!");
+            return;
+        }
         this.totalPrice += orderItem.getSubItem().getPrice() * orderItem.getCnt();
         this.itemList.add(orderItem);
+    }
+    public void removeOrderItemByIndex(int index){
+        if(this.orderState.compareTo(State.PAID) >= 0){
+            System.out.println("Can't change order after payment!");
+            return;
+        }
+        this.itemList.remove(index);
     }
     public int getTotalPrice(){
         return this.totalPrice;
     }
-    public State getOrderStatus(){
-        return this.orderStatus;
+    public State getOrderState(){
+        return this.orderState;
     }
-    public void setOrderStatus(State orderStatus){
-        this.orderStatus = orderStatus;
+    public void setOrderState(State orderStatus){
+        this.orderState = orderStatus;
+        if(orderStatus == State.WAITING_FOR_PAYMENT){
+            this.setTimeOrdered(Time.now());
+        }
+        if(orderStatus == State.PAID){
+            this.setTimePaid(Time.now());
+            for(var orderItem : this.getOrderItemList()){
+                orderItem.getSubItem().incSoldCnt(orderItem.getCnt());
+            }
+        }
     }
     public Time getTimeOrdered(){
         return this.timeOrdered;
@@ -97,7 +145,14 @@ public class Order implements Serializable {
             return null;
         }
         Order order = new Order(nextOrderId());
-        order.customer = customer;
+        order.setCustomer(customer);
+        var address = Address.chooseAddress(customer.getAddresses());
+        if(address == null){
+            return null;
+        }
+        var newAddress = new Address();
+        newAddress.copy(address);
+        order.setAddress(newAddress);
         Scanner scanner = new Scanner(System.in);
         String inp;
         int n;
@@ -108,20 +163,26 @@ public class Order implements Serializable {
         }
         n = Integer.parseInt(inp);
         for(int i = 0; i < n; i++){
-            var item = Item.chooseItem(items);
-            if(item == null){
-                return null;
-            }
-            var subItem = Item.SubItem.chooseSubItem(item.getPackages());
-            if(subItem == null){
-                return null;
-            }
-            var orderItem = OrderItem.addMenu(subItem);
+            var orderItem = OrderItem.chooseOrderItem(items);
             if(orderItem == null){
                 return null;
             }
             order.addOrderItem(orderItem);
         }
         return order;
+    }
+    public static State chooseOrderState(){
+        Scanner scanner = new Scanner(System.in);
+        var stateList = State.values();
+        int index = 1;
+        System.out.println("Choose OrderState:");
+        for(State st : stateList){
+            System.out.println("    " + index + ": " + st.name());
+            index++;
+        }
+        System.out.println("  0: Back");
+        int ind = scanner.nextInt() - 1;
+        if(0 <= ind && ind < index - 1) return stateList[ind];
+        return null;
     }
 }

@@ -14,6 +14,8 @@ public class Item implements Serializable {
         private Item item;
         private String title;
         private int price;
+
+        private int soldCnt;
         SubItem(Item item) {
             this.item = item;
         }
@@ -39,6 +41,12 @@ public class Item implements Serializable {
         }
         public String getTitle(){
             return this.title;
+        }
+        public int getSoldCnt(){
+            return this.soldCnt;
+        }
+        public void incSoldCnt(int x){
+            this.soldCnt += x;
         }
         public static SubItem chooseSubItem(ArrayList<SubItem> items){
             Scanner scanner = new Scanner(System.in);
@@ -81,6 +89,7 @@ public class Item implements Serializable {
     }
     private int itemId;
     private String title;
+    private Shop shop;
     private ArrayList<SubItem> packages = new ArrayList<>();
     public void setTitle(String title){
         this.title = title;
@@ -96,6 +105,12 @@ public class Item implements Serializable {
     }
     public ArrayList<SubItem> getPackages(){
         return this.packages;
+    }
+    public void setShop(Shop shop){
+        this.shop = shop;
+    }
+    public Shop getShop(){
+        return this.shop;
     }
     public static Item addMenu(){
         Scanner scanner = new Scanner(System.in);
