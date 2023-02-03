@@ -10,6 +10,52 @@ public class Item implements Serializable {
     public Item(int itemId){
         this.itemId = itemId;
     }
+
+    public static Item inputItem(){
+        Scanner scanner = new Scanner(System.in);
+        String inp;
+        var item = new Item(nextItemId());
+        System.out.println("Enter Item title:");
+        inp = scanner.nextLine();
+        if(inp.equals("back")){
+            return null;
+        }
+        item.setTitle(inp);
+        System.out.println("Enter number of packages");
+        inp = scanner.nextLine();
+        if(inp.equals("back")){
+            return null;
+        }
+        int n = Integer.parseInt(inp);
+        for(int i = 0; i < n; i++){
+            var subItem = SubItem.addMenu(item);
+            if(subItem == null){
+                return null;
+            }
+            item.addPackage(subItem);
+        }
+        return item;
+    }
+    public static Item chooseItem(ArrayList<Item> items){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose the Item:");
+        for(int i = 0; i < items.size(); i++){
+            System.out.println("    " + (i + 1) + ": " + items.get(i).getTitle());
+        }
+        System.out.println("  0 : cancel");
+        int index = scanner.nextInt() - 1;
+        if(index == -1){
+            return null;
+        }
+        while(!(0 <= index && index < items.size())){
+            System.out.println("Index out of range! Please try again:");
+            index = scanner.nextInt() - 1;
+            if(index == -1){
+                return null;
+            }
+        }
+        return items.get(index);
+    }
     public static class SubItem implements Serializable{
         private Item item;
         private String title;
@@ -112,49 +158,5 @@ public class Item implements Serializable {
     public Shop getShop(){
         return this.shop;
     }
-    public static Item addMenu(){
-        Scanner scanner = new Scanner(System.in);
-        String inp;
-        var item = new Item(nextItemId());
-        System.out.println("Enter Item title:");
-        inp = scanner.nextLine();
-        if(inp.equals("back")){
-            return null;
-        }
-        item.setTitle(inp);
-        System.out.println("Enter number of packages");
-        inp = scanner.nextLine();
-        if(inp.equals("back")){
-            return null;
-        }
-        int n = Integer.parseInt(inp);
-        for(int i = 0; i < n; i++){
-            var subItem = SubItem.addMenu(item);
-            if(subItem == null){
-                return null;
-            }
-            item.addPackage(subItem);
-        }
-        return item;
-    }
-    public static Item chooseItem(ArrayList<Item> items){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose the Item:");
-        for(int i = 0; i < items.size(); i++){
-            System.out.println("    " + (i + 1) + ": " + items.get(i).getTitle() + " " + items.get(i).itemId);
-        }
-        System.out.println("  0 : cancel");
-        int index = scanner.nextInt() - 1;
-        if(index == -1){
-            return null;
-        }
-        while(!(0 <= index && index < items.size())){
-            System.out.println("Index out of range! Please try again:");
-            index = scanner.nextInt() - 1;
-            if(index == -1){
-                return null;
-            }
-        }
-        return items.get(index);
-    }
+
 }

@@ -4,25 +4,8 @@ import java.util.Scanner;
 
 public class Address implements Serializable {
 
-    private String name;
-    private String fullAddress;
-    public void setName(String name){
-        this.name = name;
-    }
-    public String getName(){
-        return this.name;
-    }
-    public void setFullAddress(String fullAddress){
-        this.fullAddress = fullAddress;
-    }
-    public String getFullAddress(){
-        return this.fullAddress;
-    }
-    public void copy(Address address){
-        this.name = address.name;
-        this.fullAddress = address.fullAddress;
-    }
-    public static Address addMenu(){
+    public static Address inputAddress(){
+        System.out.println("Getting Address Information");
         Address address = new Address();
         Scanner scanner = new Scanner(System.in);
         String inp;
@@ -59,5 +42,23 @@ public class Address implements Serializable {
             }
         }
         return addresses.get(index);
+    }
+    private String name;
+    private String fullAddress;
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public void setFullAddress(String fullAddress){
+        this.fullAddress = fullAddress;
+    }
+    public String getFullAddress(){
+        return this.fullAddress;
+    }
+    public void copy(Address address){
+        this.name = address.name;
+        this.fullAddress = address.fullAddress;
     }
 }

@@ -1,19 +1,9 @@
 import java.io.Serializable;
-import java.lang.constant.Constable;
 import java.util.Scanner;
 
 public class Contact implements Serializable {
-    public String name;
-    public String phoneNumber;
-    public String emailAddress;
-
-    public boolean matches(Contact contact){
-        if(this.phoneNumber.equals(contact.phoneNumber)) return true;
-        if(this.name.equals(contact.name)) return true;
-        if(this.emailAddress.equals(contact.emailAddress)) return true;
-        return false;
-    }
-    public static Contact addMenu(){
+    public static Contact inputContact(){
+        System.out.println("Getting Contact information");
         Contact contact = new Contact();
         Scanner scanner = new Scanner(System.in);
         String inp;
@@ -36,6 +26,16 @@ public class Contact implements Serializable {
         }
         contact.emailAddress = inp;
         return contact;
+    }
+    public String name;
+    public String phoneNumber;
+    public String emailAddress;
+
+    public boolean matches(Contact contact){
+        if(this.phoneNumber.equals(contact.phoneNumber)) return true;
+        if(this.name.equals(contact.name)) return true;
+        if(this.emailAddress.equals(contact.emailAddress)) return true;
+        return false;
     }
     public void copy(Contact contact){
         this.name = contact.name;
