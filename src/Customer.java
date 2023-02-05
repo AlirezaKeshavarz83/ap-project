@@ -1,46 +1,9 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Customer implements Serializable {
 
     private static int lastCustomerId;
-
-    public static Customer inputCustomer(){
-        System.out.println("Getting Customer Information");
-        var customer = new Customer(nextCustomerId());
-        var contact = Contact.inputContact();
-        if(contact == null){
-            return null;
-        }
-        var address = Address.inputAddress();
-        if(address == null){
-            return null;
-        }
-        customer.setContact(contact);
-        customer.addAddress(address);
-        return customer;
-    }
-    public static Customer chooseCustomer(ArrayList<Customer> customers){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose a customer:");
-        for(int i = 0; i < customers.size(); i++){
-            System.out.println("    " + (i + 1) + ": " + customers.get(i).getContact().name);
-        }
-        System.out.println("  0 : cancel");
-        int index = scanner.nextInt() - 1;
-        if(index == -1){
-            return null;
-        }
-        while(!(0 <= index && index < customers.size())){
-            System.out.println("Index out of range! Please try again:");
-            index = scanner.nextInt() - 1;
-            if(index == -1){
-                return null;
-            }
-        }
-        return customers.get(index);
-    }
     private int customerId;
     private Contact contact;
     private ArrayList<Address> addresses = new ArrayList<>();

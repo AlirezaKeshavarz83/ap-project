@@ -8,6 +8,9 @@ public class Main {
         Shop shop = db.readData();
         db.start();
 
+        UI.start();
+        GUI.init();
+
         Menu.shopMenu(shop);
 
         db.close();

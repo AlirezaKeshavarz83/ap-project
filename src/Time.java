@@ -21,7 +21,10 @@ public class Time implements Serializable {
         this.minute = 0;
     }
     public String getDateString(){
-        return ("" + year + "-" + month + "-" + day);
+        return ("" + year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day));
+    }
+    public String getDateTimeString(){
+        return ("" + year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day) + " " + String.format("%02d", hour) + ":" + String.format("%02d", minute));
     }
     public static Time now(){
         var dt = LocalDateTime.now();

@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Order implements Serializable {
     private static int lastOrderId = 0;
@@ -34,77 +33,6 @@ public class Order implements Serializable {
         public void setCnt(int cnt){
             this.cnt = cnt;
         }
-        public static OrderItem addMenu(Item.SubItem item){
-            Scanner scanner = new Scanner(System.in);
-            String inp;
-            var orderItem = new OrderItem();
-            orderItem.subItem = item;
-            System.out.println("How many?");
-            inp = scanner.nextLine();
-            if(inp.equals("back")){
-                return null;
-            }
-            orderItem.cnt = Integer.parseInt(inp);
-            return orderItem;
-        }
-        public static OrderItem chooseOrderItem(ArrayList<Item> items){
-            var item = Item.chooseItem(items);
-            if(item == null){
-                return null;
-            }
-            var subItem = Item.SubItem.chooseSubItem(item.getPackages());
-            if(subItem == null){
-                return null;
-            }
-            return OrderItem.addMenu(subItem);
-        }
-
-    }
-    public static Order inputOrder(ArrayList<Customer> customers, ArrayList<Item> items){
-        var customer = Customer.chooseCustomer(customers);
-        if(customer == null){
-            return null;
-        }
-        Order order = new Order(nextOrderId());
-        order.setCustomer(customer);
-        var address = Address.chooseAddress(customer.getAddresses());
-        if(address == null){
-            return null;
-        }
-        var newAddress = new Address();
-        newAddress.copy(address);
-        order.setAddress(newAddress);
-        Scanner scanner = new Scanner(System.in);
-        String inp;
-        int n;
-        System.out.println("Enter number of Order Items:");
-        inp = scanner.nextLine();
-        if(inp.equals("back")){
-            return null;
-        }
-        n = Integer.parseInt(inp);
-        for(int i = 0; i < n; i++){
-            var orderItem = OrderItem.chooseOrderItem(items);
-            if(orderItem == null){
-                return null;
-            }
-            order.addOrderItem(orderItem);
-        }
-        return order;
-    }
-    public static State chooseOrderState(){
-        Scanner scanner = new Scanner(System.in);
-        var stateList = State.values();
-        int index = 1;
-        System.out.println("Choose OrderState:");
-        for(State st : stateList){
-            System.out.println("    " + index + ": " + st.name());
-            index++;
-        }
-        System.out.println("  0: Back");
-        int ind = scanner.nextInt() - 1;
-        if(0 <= ind && ind < index - 1) return stateList[ind];
-        return null;
     }
     private int orderId;
     private Customer customer;

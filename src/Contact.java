@@ -1,45 +1,43 @@
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class Contact implements Serializable {
-    public static Contact inputContact(){
-        System.out.println("Getting Contact information");
-        Contact contact = new Contact();
-        Scanner scanner = new Scanner(System.in);
-        String inp;
-        System.out.println("Enter Contact name");
-        inp = scanner.nextLine();
-        if(inp.equals("back")){
-            return null;
-        }
-        contact.name = inp;
-        System.out.println("Enter Contact phoneNumber");
-        inp = scanner.nextLine();
-        if(inp.equals("back")){
-            return null;
-        }
-        contact.phoneNumber = inp;
-        System.out.println("Enter Contact emailAddress");
-        inp = scanner.nextLine();
-        if(inp.equals("back")){
-            return null;
-        }
-        contact.emailAddress = inp;
-        return contact;
-    }
-    public String name;
-    public String phoneNumber;
-    public String emailAddress;
+    private String name;
+    private String phoneNumber;
+    private String emailAddress;
 
     public boolean matches(Contact contact){
-        if(this.phoneNumber.equals(contact.phoneNumber)) return true;
-        if(this.name.equals(contact.name)) return true;
-        if(this.emailAddress.equals(contact.emailAddress)) return true;
+        if(this.getPhoneNumber().equals(contact.getPhoneNumber())) return true;
+        if(this.getName().equals(contact.getName())) return true;
+        if(this.getEmailAddress().equals(contact.getEmailAddress())) return true;
         return false;
     }
     public void copy(Contact contact){
-        this.name = contact.name;
-        this.phoneNumber = contact.phoneNumber;
-        this.emailAddress = contact.emailAddress;
+        this.setName(contact.getName());
+        this.setPhoneNumber(contact.getPhoneNumber());
+        this.setEmailAddress(contact.getEmailAddress());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 }
