@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Item Class for containing the data of each item in the shop.
+ */
 public class Item implements Serializable {
     private static int lastItemId = 0;
     public static int nextItemId(){
@@ -9,6 +12,10 @@ public class Item implements Serializable {
     public Item(int itemId){
         this.itemId = itemId;
     }
+
+    /**
+     * SubItem for each package the item comes in.
+     */
     public static class SubItem implements Serializable{
         private Item item;
         private String title;
@@ -44,6 +51,11 @@ public class Item implements Serializable {
         public int getSoldCnt(){
             return this.soldCnt;
         }
+
+        /**
+         * Increment the number of times this SubItem has been sold.
+         * @param x the number of newly sold items
+         */
         public void incSoldCnt(int x){
             this.soldCnt += x;
         }

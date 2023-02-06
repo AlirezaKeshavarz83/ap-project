@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Creating menus for different parts of the GUI.
+ */
 public class Menu {
     public static void shopMenu(Shop shop) {
 
@@ -179,7 +182,7 @@ public class Menu {
             System.out.println("Goes to " + order.getAddress().getName() + ": " + order.getAddress().getFullAddress());
             var orderItemList = order.getOrderItemList();
             for(int i = 0; i < orderItemList.size(); i++){
-                System.out.println("    " + (i + 1) + ". " + orderItemList.get(i).getSubItem().getItem().getTitle() + " - " + orderItemList.get(i).getSubItem().getTitle() + " -  x" + orderItemList.get(i).getCnt());
+                System.out.println("    " + (i + 1) + ". " + String.format("%-15s" , orderItemList.get(i).getSubItem().getItem().getTitle()) + "  " + String.format("%-15s", orderItemList.get(i).getSubItem().getTitle()) + "    x" + orderItemList.get(i).getCnt());
             }
             System.out.println("Choose your next action:");
             System.out.println("    1 : Add OrderItem");
@@ -192,7 +195,7 @@ public class Menu {
             window.addText(order.getCustomer().getContact().getName() + "     " + order.getTimeOrdered().getDateTimeString() + "     " + order.getOrderState().name());
             window.addText("Goes to " + order.getAddress().getName() + ": " + order.getAddress().getFullAddress());
             for(int i = 0; i < orderItemList.size(); i++){
-                window.addText("    " + (i + 1) + ". " + orderItemList.get(i).getSubItem().getItem().getTitle() + " - " + orderItemList.get(i).getSubItem().getTitle() + " -  x" + orderItemList.get(i).getCnt());
+                window.addText("    " + (i + 1) + ". " + String.format("%-15s" , orderItemList.get(i).getSubItem().getItem().getTitle()) + "  " + String.format("%-15s", orderItemList.get(i).getSubItem().getTitle()) + "    x" + orderItemList.get(i).getCnt());
             }
             window.addButton("Add OrderItem",          "1");
             window.addButton("Remove OrderItem",       "2");
@@ -301,7 +304,7 @@ public class Menu {
             var subItems = item.getPackages();
             for(int i = 0; i < subItems.size(); i++){
                 var subItem = subItems.get(i);
-                window.addText("    " + (i + 1) + ". " + subItem.getTitle() + "     $" + subItem.getPrice() + "    sold: x" + subItem.getSoldCnt());
+                window.addText("    " + (i + 1) + ". " + String.format("%-15s", subItem.getTitle()) + "     " + String.format("%-15s", "$" + subItem.getPrice()) + "    sold: x" + subItem.getSoldCnt());
             }
             window.addButton("Remove Item",            "1");
             window.addButton("Back",                   "0");

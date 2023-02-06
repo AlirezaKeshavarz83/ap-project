@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
+/**
+ * Class for communicating with the user.
+ * Overall consists of a bunch of methods that each get certain things from the user,
+ * so I won't get into the details of each method as they are clear and need no further explanation.
+ */
 public class UI {
     private static class MyThread extends Thread{
 
@@ -48,6 +53,11 @@ public class UI {
             return x;
         }
     }
+
+    /**
+     * Deliberately add a line to the input.
+     * @param inp the fucking line?
+     */
     public static void newLine(String inp){
         input.add(inp);
     }

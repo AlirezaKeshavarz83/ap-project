@@ -1,3 +1,7 @@
+/**
+ * @author Keshi
+ */
+
 public class Main {
     public static DataBase db;
     public static void main(String[] args) {
@@ -15,5 +19,7 @@ public class Main {
 
         db.close();
         db.writeData();
+        GUI.close();
+        System.exit(0);
     }
 }

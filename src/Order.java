@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Order Class for containing the data of each order invoiced in the shop.
+ */
 public class Order implements Serializable {
     private static int lastOrderId = 0;
     public static int nextOrderId(){
@@ -9,6 +12,10 @@ public class Order implements Serializable {
     public Order(int orderId){
         this.orderId = orderId;
     }
+
+    /**
+     * Enum State is used to clarify in which state of the process the order is.
+     */
     enum State{
         INCOMPLETE,
         WAITING_FOR_PAYMENT,
@@ -17,6 +24,10 @@ public class Order implements Serializable {
         ON_DELIVERY,
         DELIVERED
     }
+
+    /**
+     * OrderItem class is used to store the data for each item in our order including the <Code>Item</Code> object and the number of item purchased.
+     */
     public static class OrderItem implements Serializable{
         private Item.SubItem subItem;
         private int cnt;
@@ -75,6 +86,12 @@ public class Order implements Serializable {
         this.totalPrice += orderItem.getSubItem().getPrice() * orderItem.getCnt();
         this.itemList.add(orderItem);
     }
+
+    /**
+     * Removes an OrderItem from the list.
+     * Only possible when the order is not yet paid for.
+     * @param index the index of the <Code>OrderItem</Code> in this order's items' list.
+     */
     public void removeOrderItemByIndex(int index){
         if(this.orderState.compareTo(State.PAID) >= 0){
             System.out.println("Can't change order after payment!");
@@ -82,6 +99,11 @@ public class Order implements Serializable {
         }
         this.itemList.remove(index);
     }
+
+    /**
+     * Used to get the total price of the order being the amount the customer has to pay.
+     * @return order's total price
+     */
     public int getTotalPrice(){
         return this.totalPrice;
     }

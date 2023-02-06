@@ -1,6 +1,8 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * Customer Class for containing the data of each customer in the shop.
+ */
 public class Customer implements Serializable {
 
     private static int lastCustomerId;
@@ -28,9 +30,19 @@ public class Customer implements Serializable {
     public ArrayList<Address> getAddresses(){
         return this.addresses;
     }
+
+    /**
+     * Add an address to the list of addresses for this customer.
+     * @param address the address you want to add
+     */
     public void addAddress(Address address){
         this.addresses.add(address);
     }
+
+    /**
+     * Add what the customer has just ordered.
+     * @param order the new order you want to add
+     */
     public void addOrder(Order order){
         this.orders.add(order);
     }
