@@ -184,6 +184,7 @@ public class Menu {
             for(int i = 0; i < orderItemList.size(); i++){
                 System.out.println("    " + (i + 1) + ". " + String.format("%-15s" , orderItemList.get(i).getSubItem().getItem().getTitle()) + "  " + String.format("%-15s", orderItemList.get(i).getSubItem().getTitle()) + "    x" + orderItemList.get(i).getCnt());
             }
+            System.out.println("    " + "  Total Price:    $" + order.getTotalPrice());
             System.out.println("Choose your next action:");
             System.out.println("    1 : Add OrderItem");
             System.out.println("    2 : Remove OrderItem");
@@ -197,6 +198,7 @@ public class Menu {
             for(int i = 0; i < orderItemList.size(); i++){
                 window.addText("    " + (i + 1) + ". " + String.format("%-15s" , orderItemList.get(i).getSubItem().getItem().getTitle()) + "  " + String.format("%-15s", orderItemList.get(i).getSubItem().getTitle()) + "    x" + orderItemList.get(i).getCnt());
             }
+            window.addText("Total Price:    $" + order.getTotalPrice());
             window.addButton("Add OrderItem",          "1");
             window.addButton("Remove OrderItem",       "2");
             window.addButton("Update OrderStatus",     "3");
