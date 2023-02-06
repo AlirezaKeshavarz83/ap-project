@@ -1,14 +1,14 @@
 /**
  * @author Keshi
  */
-import BusinessDomain.Shop;
-import Database.*;
-import UserInterface.*;
+import business_domain.Shop;
+import database.*;
+import user_interface.*;
 
 public class Main {
     public static Database db;
     public static void main(String[] args) {
-        String filename = "file.txt";
+        String filename = "database/file.txt";
 
         db = new Database(filename);
 
